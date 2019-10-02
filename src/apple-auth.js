@@ -17,27 +17,14 @@ class AppleAuth {
    *  in Apple's Developer Portal). Example: com.ananayarora.app
    * @param {string} config.team_id – Team ID for the Apple Developer Account
    *  found on top right corner of the developers page
-   * @param {string} config.key_id – The identifier for the private key on the Apple
-   *  Developer Account page
-   * @param {string} privateKeyLocation - Private Key Location / the key itself
-   * @param {string} privateKeyMethod - Private Key Method (can be either 'file' or 'text')
+   * @param {string} config.key_id – The identifier for the private key on the
+   * Apple Developer Account page
+   * @param {string} privateKey - The private key itself
    */
 
-  constructor(config, privateKey, privateKeyMethod) {
-    if (typeof config == "object") {
-      if (Buffer.isBuffer(config)) {
-        this._config = JSON.parse(config.toString());
-      } else {
-        this._config = config;
-      }
-    } else {
-      this._config = JSON.parse(config);
-    }
-    this._tokenGenerator = new AppleClientSecret(
-      this._config,
-      privateKey,
-      privateKeyMethod
-    );
+  constructor(config, privateKey) {
+    this._config = config;
+    this._tokenGenerator = new AppleClientSecret(this._config, privateKey);
   }
 
   /**
