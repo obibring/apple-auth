@@ -2,7 +2,6 @@ declare module "apple-auth" {
   export interface AppleAuthConfig {
     client_id: string;
     team_id: string;
-    redirect_uri: string;
     key_id: string;
   }
   // https://developer.apple.com/documentation/signinwithapplerestapi/tokenresponse
@@ -15,10 +14,16 @@ declare module "apple-auth" {
   }
   // https://developer.apple.com/documentation/signinwithapplerestapi/errorresponse
   export interface AppleAuthError {
-    error: "invalid_request" | "invalid_client" | "invalid_grant" | "unauthorized_client" | "unsupported_grant_type" | "invalid_scope";
+    error:
+      | "invalid_request"
+      | "invalid_client"
+      | "invalid_grant"
+      | "unauthorized_client"
+      | "unsupported_grant_type"
+      | "invalid_scope";
   }
   export default class AppleAuth {
-    constructor(config: AppleAuthConfig, privateKeyLocation: string)
+    constructor(config: AppleAuthConfig, privateKeyLocation: string);
     loginURL(): string;
     accessToken(code: string): Promise<AppleAuthAccessToken>;
     refreshToken(code: string): Promise<AppleAuthAccessToken>;
